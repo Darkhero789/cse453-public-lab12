@@ -14,9 +14,10 @@ import messages, control
 # User has a name and a password
 ###############################################################
 class User:
-    def __init__(self, name, password):
+    def __init__(self, name, password, level):
         self.name = name
         self.password = password
+        self.level = level
 
 userlist = [
    [ "AdmiralAbe",     "password" , "secret"],  
@@ -45,7 +46,7 @@ class Interact:
     # Authenticate the user and get him/her all set up
     ##################################################
     def __init__(self, username, password, messages):
-        self._authenticate(username, password)
+        self._con = self._authenticate(username, password)
         self._username = username
         self._p_messages = messages
 
@@ -116,7 +117,11 @@ class Interact:
     ################################################## 
     def _authenticate(self, username, password):
         id_ = self._id_from_user(username)
-        return ID_INVALID != id_ and password == users[id_].password
+        if (ID_INVALID != id_ and password == users[id_].password):
+            con = users[id_].level
+            return control.translate(con)
+        else:
+            return control.translate("public")
 
     ##################################################
     # INTERACT :: ID FROM USER
@@ -125,7 +130,7 @@ class Interact:
     def _id_from_user(self, username):
         for id_user in range(len(users)):
             if username == users[id_user].name:
-                return id_user
+                return id_user 
         return ID_INVALID
 
 #####################################################
