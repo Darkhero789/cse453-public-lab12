@@ -19,11 +19,11 @@ class User:
         self.password = password
 
 userlist = [
-   [ "AdmiralAbe",     "password" ],  
-   [ "CaptainCharlie", "password" ], 
-   [ "SeamanSam",      "password" ],
-   [ "SeamanSue",      "password" ],
-   [ "SeamanSly",      "password" ]
+   [ "AdmiralAbe",     "password" , "secret"],  
+   [ "CaptainCharlie", "password" , "privileged"], 
+   [ "SeamanSam",      "password" , "confidential"],
+   [ "SeamanSue",      "password" , "confidential"],
+   [ "SeamanSly",      "password" , "confidential"]
 ]
 
 ###############################################################
