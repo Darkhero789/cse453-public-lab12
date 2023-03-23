@@ -9,10 +9,13 @@
 
 # you may need to put something here...
 
-def permision(usercontrol, assetcontrol):
+def read_permision(usercontrol, assetcontrol):
     return usercontrol >= assetcontrol
 
 def translate(level):
     levels = ["public", "confidential","privileged","secret"]
     x = levels.index(level)
     return x
+
+def write_permision(usercontrol, assetcontrol):
+    return usercontrol <= assetcontrol
