@@ -73,7 +73,7 @@ class Messages:
             if m.get_id() == id:
                 return m.get_control()
             
-        return False
+        return -1
 
     ##################################################
     # MESSAGES :: READ MESSAGES

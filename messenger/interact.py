@@ -58,7 +58,7 @@ class Interact:
         id_ = self._prompt_for_id("display")
         message_control = self._p_messages.get_control(id_)
 
-        if not message_control:
+        if message_control == -1:
             print(f"ERROR! Message ID \'{id_}\' does not exist")
         elif control.read_permision(self._con, message_control):
             self._p_messages.show(id_)
@@ -97,7 +97,7 @@ class Interact:
     def update(self):
         id_ = self._prompt_for_id("update")
         message_control = self._p_messages.get_control(id_)
-        if not message_control:
+        if message_control == -1:
             print(f"ERROR! Message ID \'{id_}\' does not exist")
         elif control.write_permision(self._con, message_control):
             self._p_messages.show(id_)
@@ -113,7 +113,7 @@ class Interact:
     def remove(self):
         id_ = self._prompt_for_id("delete")
         message_control = self._p_messages.get_control(id_)
-        if not message_control:
+        if message_control == -1:
             print(f"ERROR! Message ID \'{id_}\' does not exist")
         elif control.write_permision(self._con, message_control):
             self._p_messages.remove(id_)
