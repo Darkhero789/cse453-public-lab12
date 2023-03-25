@@ -28,19 +28,24 @@ class Message:
         self._author = ""
         self._date = ""
         self._id = Message._id_next
+        self._control = 0
         Message._id_next += 1
 
     ##################################################
     # MESSAGE NON-DEFAULT CONSTRUCTOR
     # Create a message and fill it
     ##################################################   
-    def __init__(self, text, author, date):
+    def __init__(self, text, author, date, control):
         self._text = text
         self._author = author
         self._date = date
         self._id = Message._id_next
         Message._id_next += 1
+        self._control = control
         self._empty = False
+
+    def get_control(self):
+        return self._control
 
     ##################################################
     # MESSAGE :: GET ID
@@ -82,3 +87,4 @@ class Message:
         self._author = ""
         self._date = ""
         self._empty = True
+        self._control = 0

@@ -14,7 +14,7 @@ def read_permision(usercontrol, assetcontrol):
 
 def translate(level):
     levels = ["public", "confidential","privileged","secret"]
-    x = levels.index(level)
+    x = levels.index(level.lower())
     return x
 
 def write_permision(usercontrol, assetcontrol):
