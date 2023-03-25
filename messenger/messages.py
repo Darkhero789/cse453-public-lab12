@@ -72,6 +72,8 @@ class Messages:
         for m in self._messages:
             if m.get_id() == id:
                 return m.get_control()
+            
+        return False
 
     ##################################################
     # MESSAGES :: READ MESSAGES

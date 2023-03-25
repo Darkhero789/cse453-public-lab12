@@ -56,8 +56,14 @@ class Interact:
     ##################################################
     def show(self):
         id_ = self._prompt_for_id("display")
-        if not self._p_messages.show(id_):
+        message_control = self._p_messages.get_control(id_)
+
+        if not message_control:
             print(f"ERROR! Message ID \'{id_}\' does not exist")
+        elif control.read_permision(self._con, message_control):
+            self._p_messages.show(id_)
+        else:
+            print(f"ERROR! Message ID \'{id_}\' is not accessible to you")
         print()
 
     ##################################################
@@ -74,9 +80,15 @@ class Interact:
     # Add a single message
     ################################################## 
     def add(self):
-        self._p_messages.add(self._prompt_for_line("message"),
-                             self._username,
-                             self._prompt_for_line("date"))
+        message_control_str = self._prompt_for_line("security level")
+        message_control = control.translate(message_control_str)
+        if control.write_permision(self._con, message_control):
+            self._p_messages.add(self._prompt_for_line("message"),
+                                 self._username,
+                                 self._prompt_for_line("date"),
+                                 message_control)
+        else:
+            print(f"ERROR! You do not have permission to add a {message_control_str} message")
 
     ##################################################
     # INTERACT :: UPDATE
@@ -84,10 +96,14 @@ class Interact:
     ################################################## 
     def update(self):
         id_ = self._prompt_for_id("update")
-        if not self._p_messages.show(id_):
-            print(f"ERROR! Message ID \'{id_}\' does not exist\n")
-            return
-        self._p_messages.update(id_, self._prompt_for_line("message"))
+        message_control = self._p_messages.get_control(id_)
+        if not message_control:
+            print(f"ERROR! Message ID \'{id_}\' does not exist")
+        elif control.write_permision(self._con, message_control):
+            self._p_messages.show(id_)
+            self._p_messages.update(id_, self._prompt_for_line("message"))
+        else:
+            print(f"ERROR! Message ID \'{id_}\' is not accessible to you")
         print()
             
     ##################################################
@@ -95,7 +111,15 @@ class Interact:
     # Remove one message from the list
     ################################################## 
     def remove(self):
-        self._p_messages.remove(self._prompt_for_id("delete"))
+        id_ = self._prompt_for_id("delete")
+        message_control = self._p_messages.get_control(id_)
+        if not message_control:
+            print(f"ERROR! Message ID \'{id_}\' does not exist")
+        elif control.write_permision(self._con, message_control):
+            self._p_messages.remove(id_)
+        else:
+            print(f"ERROR! Message ID \'{id_}\' is not accessible to you")
+        print()
 
     ##################################################
     # INTERACT :: PROMPT FOR LINE
